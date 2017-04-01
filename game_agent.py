@@ -6,12 +6,199 @@ augment the test suite with your own test cases to further test your code.
 You must test your agent's strength against a set of agents with known
 relative strength using tournament.py and include the results in your report.
 """
-import random
 
 
 class Timeout(Exception):
     """Subclass base exception for code clarity."""
     pass
+
+
+def heuristic_one(game, player):
+    """
+    *************************
+     Evaluating: ID_Improved
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1: ID_Improved vs   Random    	Result: 15 to 5
+      Match 2: ID_Improved vs   MM_Null   	Result: 15 to 5
+      Match 3: ID_Improved vs   MM_Open   	Result: 16 to 4
+      Match 4: ID_Improved vs MM_Improved 	Result: 12 to 8
+      Match 5: ID_Improved vs   AB_Null   	Result: 18 to 2
+      Match 6: ID_Improved vs   AB_Open   	Result: 13 to 7
+      Match 7: ID_Improved vs AB_Improved 	Result: 11 to 9
+
+
+    Results:
+    ----------
+    ID_Improved         71.43%
+
+    *************************
+       Evaluating: Student
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1:   Student   vs   Random    	Result: 18 to 2
+      Match 2:   Student   vs   MM_Null   	Result: 13 to 7
+      Match 3:   Student   vs   MM_Open   	Result: 12 to 8
+      Match 4:   Student   vs MM_Improved 	Result: 10 to 10
+      Match 5:   Student   vs   AB_Null   	Result: 13 to 7
+      Match 6:   Student   vs   AB_Open   	Result: 12 to 8
+      Match 7:   Student   vs AB_Improved 	Result: 11 to 9
+
+
+    Results:
+    ----------
+    Student             63.57%
+    """
+    return float(len(game.get_legal_moves(player)))
+
+
+def heuristic_two(game, player):
+    """
+    *************************
+     Evaluating: ID_Improved
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1: ID_Improved vs   Random    	Result: 17 to 3
+      Match 2: ID_Improved vs   MM_Null   	Result: 17 to 3
+      Match 3: ID_Improved vs   MM_Open   	Result: 13 to 7
+      Match 4: ID_Improved vs MM_Improved 	Result: 12 to 8
+      Match 5: ID_Improved vs   AB_Null   	Result: 15 to 5
+      Match 6: ID_Improved vs   AB_Open   	Result: 12 to 8
+      Match 7: ID_Improved vs AB_Improved 	Result: 12 to 8
+
+
+    Results:
+    ----------
+    ID_Improved         70.00%
+
+    *************************
+       Evaluating: Student
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1:   Student   vs   Random    	Result: 17 to 3
+      Match 2:   Student   vs   MM_Null   	Result: 14 to 6
+      Match 3:   Student   vs   MM_Open   	Result: 16 to 4
+      Match 4:   Student   vs MM_Improved 	Result: 12 to 8
+      Match 5:   Student   vs   AB_Null   	Result: 15 to 5
+      Match 6:   Student   vs   AB_Open   	Result: 12 to 8
+      Match 7:   Student   vs AB_Improved 	Result: 10 to 10
+
+
+    Results:
+    ----------
+    Student             68.57%
+    """
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    return float(player_moves - opponent_moves)
+
+
+def heuristic_three(game, player):
+    """
+    *************************
+     Evaluating: ID_Improved
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1: ID_Improved vs   Random    	Result: 19 to 1
+      Match 2: ID_Improved vs   MM_Null   	Result: 17 to 3
+      Match 3: ID_Improved vs   MM_Open   	Result: 13 to 7
+      Match 4: ID_Improved vs MM_Improved 	Result: 15 to 5
+      Match 5: ID_Improved vs   AB_Null   	Result: 12 to 8
+      Match 6: ID_Improved vs   AB_Open   	Result: 14 to 6
+      Match 7: ID_Improved vs AB_Improved 	Result: 13 to 7
+
+
+    Results:
+    ----------
+    ID_Improved         73.57%
+
+    *************************
+       Evaluating: Student
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1:   Student   vs   Random    	Result: 17 to 3
+      Match 2:   Student   vs   MM_Null   	Result: 16 to 4
+      Match 3:   Student   vs   MM_Open   	Result: 13 to 7
+      Match 4:   Student   vs MM_Improved 	Result: 16 to 4
+      Match 5:   Student   vs   AB_Null   	Result: 15 to 5
+      Match 6:   Student   vs   AB_Open   	Result: 13 to 7
+      Match 7:   Student   vs AB_Improved 	Result: 11 to 9
+
+
+    Results:
+    ----------
+    Student             72.14%
+    """
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    approx_depth = 50 - len(game.get_blank_spaces())
+    return float(player_moves - opponent_moves - approx_depth * 0.01)
+
+
+def heuristic_four(game, player):
+    """
+    *************************
+     Evaluating: ID_Improved
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1: ID_Improved vs   Random    	Result: 18 to 2
+      Match 2: ID_Improved vs   MM_Null   	Result: 13 to 7
+      Match 3: ID_Improved vs   MM_Open   	Result: 14 to 6
+      Match 4: ID_Improved vs MM_Improved 	Result: 10 to 10
+      Match 5: ID_Improved vs   AB_Null   	Result: 16 to 4
+      Match 6: ID_Improved vs   AB_Open   	Result: 13 to 7
+      Match 7: ID_Improved vs AB_Improved 	Result: 11 to 9
+
+
+    Results:
+    ----------
+    ID_Improved         67.86%
+
+    *************************
+       Evaluating: Student
+    *************************
+
+    Playing Matches:
+    ----------
+      Match 1:   Student   vs   Random    	Result: 17 to 3
+      Match 2:   Student   vs   MM_Null   	Result: 16 to 4
+      Match 3:   Student   vs   MM_Open   	Result: 12 to 8
+      Match 4:   Student   vs MM_Improved 	Result: 13 to 7
+      Match 5:   Student   vs   AB_Null   	Result: 14 to 6
+      Match 6:   Student   vs   AB_Open   	Result: 14 to 6
+      Match 7:   Student   vs AB_Improved 	Result: 12 to 8
+
+
+    Results:
+    ----------
+    Student             70.00%
+    """
+    player_moves = len(game.get_legal_moves(player))
+    opponent_moves = len(game.get_legal_moves(game.get_opponent(player)))
+
+    approx_depth = 49 - len(game.get_blank_spaces())
+    center_value, center_spaces = 0, [(3, 3)]
+
+    if approx_depth == 3:
+        if game.get_player_location(player) in center_spaces:
+            center_value = 99999
+
+    return float(center_value + player_moves -
+                 opponent_moves - approx_depth * 0.01)
 
 
 def custom_score(game, player):
@@ -36,9 +223,12 @@ def custom_score(game, player):
     float
         The heuristic value of the current game state to the specified player.
     """
+    if game.is_loser(player):
+        return float("-inf")
 
-    # TODO: finish this function!
-    raise NotImplementedError
+    if game.is_winner(player):
+        return float("inf")
+    return heuristic_four(game, player)
 
 
 class CustomPlayer:
@@ -118,25 +308,44 @@ class CustomPlayer:
 
         self.time_left = time_left
 
-        # TODO: finish this function!
-
         # Perform any required initializations, including selecting an initial
         # move from the game board (i.e., an opening book), or returning
         # immediately if there are no legal moves
+        best_move = (-1, -1)
+
+        if not legal_moves:
+            return best_move
 
         try:
-            # The search method call (alpha beta or minimax) should happen in
-            # here in order to avoid timeout. The try/except block will
-            # automatically catch the exception raised by the search method
-            # when the timer gets close to expiring
-            pass
-
+            if self.iterative:
+                depth = 1
+                if self.method == 'minimax':
+                    while True:
+                        max_value, best_move = self.minimax(game, depth)
+                        if max_value == float("-inf"):
+                            break
+                        depth += 1
+                elif self.method == 'alphabeta':
+                    while True:
+                        max_value, best_move = self.alphabeta(game, depth)
+                        if max_value == float("-inf"):
+                            break
+                        depth += 1
+                else:
+                    print("Not available method")
+            else:
+                if self.method == 'minimax':
+                    _, best_move = self.minimax(game, self.search_depth)
+                elif self.method == 'alphabeta':
+                    _, best_move = self.alphabeta(game, self.search_depth)
+                else:
+                    print("Not available method")
         except Timeout:
             # Handle any actions required at timeout, if necessary
             pass
 
         # Return the best move from the last completed search iteration
-        raise NotImplementedError
+        return best_move
 
     def minimax(self, game, depth, maximizing_player=True):
         """Implement the minimax search algorithm as described in the lectures.
@@ -172,7 +381,49 @@ class CustomPlayer:
         if self.time_left() < self.TIMER_THRESHOLD:
             raise Timeout()
 
-        # TODO: finish this function!
+        legal_moves = game.get_legal_moves()
+
+        if len(legal_moves) < 1:
+            return game.utility(self), (-1, -1)
+
+        max_value, min_value, best_move = float("-inf"), float("inf"), (-1, -1)
+
+        if depth == 1:
+            if maximizing_player:
+                for legal_move in legal_moves:
+                    # score of the next move
+                    score = self.score(game.forecast_move(legal_move), self)
+                    if score > max_value:
+                        max_value, best_move = score, legal_move
+                return max_value, best_move
+            else:
+                for legal_move in legal_moves:
+                    # score of the next move
+                    score = self.score(game.forecast_move(legal_move), self)
+
+                    if score < min_value:
+                        min_value, best_move = score, legal_move
+                return min_value, best_move
+
+        if maximizing_player:
+            for legal_move in legal_moves:
+                score, _ = self.minimax(
+                    game.forecast_move(legal_move), depth-1,
+                    not maximizing_player
+                )
+                if score > max_value:
+                    max_value, best_move = score, legal_move
+            return max_value, best_move
+        else:
+            for legal_move in legal_moves:
+                score, _ = self.minimax(
+                    game.forecast_move(legal_move), depth - 1,
+                    not maximizing_player
+                )
+                if score < min_value:
+                    min_value, best_move = score, legal_move
+            return min_value, best_move
+
         raise NotImplementedError
 
     def alphabeta(self, game, depth, alpha=float("-inf"), beta=float("inf"), maximizing_player=True):
@@ -216,5 +467,52 @@ class CustomPlayer:
         if self.time_left() < self.TIMER_THRESHOLD:
             raise Timeout()
 
-        # TODO: finish this function!
+        legal_moves = game.get_legal_moves()
+
+        if len(legal_moves) < 1:
+            return game.utility(self), (-1, -1)
+
+        max_value, min_value, best_move = float("-inf"), float("inf"), (-1, -1)
+
+        if depth == 1:
+            if maximizing_player:
+                for legal_move in legal_moves:
+                    score = self.score(game.forecast_move(legal_move), self)
+                    if score >= beta:
+                        return score, legal_move
+                    if score > max_value:
+                        max_value, best_move = score, legal_move
+                return max_value, best_move
+            else:
+                for legal_move in legal_moves:
+                    score = self.score(game.forecast_move(legal_move), self)
+                    if score <= alpha:
+                        return score, legal_move
+                    if score < min_value:
+                        min_value, best_move = score, legal_move
+                return min_value, best_move
+
+        if maximizing_player:
+            for legal_move in legal_moves:
+                score, _ = self.alphabeta(
+                    game.forecast_move(legal_move), depth-1,
+                    alpha, beta, not maximizing_player)
+                if score >= beta:
+                    return score, legal_move
+                if score > max_value:
+                    max_value, best_move = score, legal_move
+                alpha = max(alpha, max_value)
+            return max_value, best_move
+        else:
+            for legal_move in legal_moves:
+                score, _ = self.alphabeta(
+                    game.forecast_move(legal_move), depth-1,
+                    alpha, beta, not maximizing_player)
+                if score <= alpha:
+                    return score, legal_move
+                if score < min_value:
+                    min_value, best_move = score, legal_move
+                beta = min(beta, min_value)
+            return min_value, best_move
+
         raise NotImplementedError
